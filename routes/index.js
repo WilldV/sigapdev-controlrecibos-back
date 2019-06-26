@@ -47,4 +47,7 @@ router.get('/ubicaciones', algrmts.getAllUbications);
 /* GET Obtener recibo */
 router.get('/recibo/:id', algrmts.getReceipt);
 
+/* POST login */ 
+router.post('/login', algrmts.login);
+
 module.exports = router;

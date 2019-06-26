@@ -191,6 +191,13 @@ function InsertQuery(req, res, next, valores){
         })
 }
 
+async function login(username, password){
+    let query = 'SELECT * FROM comparar_password($1::character varying,$2::character varying)'
+    const data = await db.any(query, [username, password])
+
+    return data[0].comparar_password
+}   
+
 module.exports = {
     SelectGeneral:SelectGeneral,
     SelectCollection:SelectCollection,
@@ -198,5 +205,6 @@ module.exports = {
     GetObservation:GetObservation,
     UpdateQuery:UpdateQuery,
     GetReceipt:GetReceipt,
-    InsertQuery:InsertQuery
+    InsertQuery:InsertQuery,
+    Login: login
 };

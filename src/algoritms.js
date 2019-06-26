@@ -291,6 +291,30 @@ function sumarDias(fecha, dias) {
     fecha.setDate(fecha.getDate() + dias);
     return fecha;
 }
+
+async function login(req, res, next){
+    try {
+        const response = await q.Login(req.body.username, req.body.password)
+        console.log(response);
+        if(response == 1){
+            res.status(200).send({
+                status: "success",
+                data: req.body.username,
+                message: "Successful login"
+            })
+        }else{
+            res.status(400).send({
+                status: "failed",
+                message: "Not successful login"
+            })
+        }
+    } catch (error) {
+        res.status(500).send({
+            status: "error",
+            message: "Something went wrong ALV"
+        })
+    }
+}
 module.exports = {
     getAll: getAll,
     getComplet: getComplet,
@@ -312,5 +336,6 @@ module.exports = {
     i_dni: indice_dni,
     i_obs: indice_obs,
     i_codigo: indice_codigo,
-    i_ubic: indice_ubic
+    i_ubic: indice_ubic,
+    login
 };
