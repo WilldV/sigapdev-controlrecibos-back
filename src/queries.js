@@ -193,6 +193,8 @@ function InsertQuery(req, res, next, valores){
 
 async function login(username, password){
     let query = 'SELECT * FROM comparar_password($1::character varying,$2::character varying)'
+    username = username.toUpperCase().trim()
+    username+=" "
     const data = await db.any(query, [username, password])
 
     return data[0].comparar_password
