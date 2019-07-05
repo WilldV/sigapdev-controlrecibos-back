@@ -294,16 +294,24 @@ function sumarDias(fecha, dias) {
 
 async function login(req, res, next){
     try {
-        const response = await q.Login(req.body.username, req.body.password)
+        let response = await q.Login(req.body.username, req.body.password)
         console.log(response);
         if(response == 1){
-            res.status(200).send({
+            return res.status(200).send({
                 status: "success",
                 data: req.body.username,
                 message: "Successful login"
             })
         }else{
-            res.status(400).send({
+            response = await q.Login2(req.body.username, req.body.password)
+            if(response == 1){
+                return res.status(200).send({
+                    status: "success",
+                    data: req.body.username,
+                    message: "Successful login"
+                })
+            }    
+            return res.status(400).send({
                 status: "failed",
                 message: "Not successful login"
             })

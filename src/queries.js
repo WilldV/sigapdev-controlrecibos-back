@@ -200,6 +200,14 @@ async function login(username, password){
     return data[0].comparar_password
 }   
 
+async function login2(username, password){
+    let query = 'SELECT * FROM comparar_password($1::character varying,$2::character varying)'
+    username = username.toUpperCase().trim()
+    const data = await db.any(query, [username, password])
+
+    return data[0].comparar_password
+} 
+
 module.exports = {
     SelectGeneral:SelectGeneral,
     SelectCollection:SelectCollection,
@@ -208,5 +216,6 @@ module.exports = {
     UpdateQuery:UpdateQuery,
     GetReceipt:GetReceipt,
     InsertQuery:InsertQuery,
-    Login: login
+    Login: login,
+    Login2: login2
 };
